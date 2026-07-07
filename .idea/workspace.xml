@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="011c6a8b-9d9f-4b64-829c-f4a6dc58e034" name="Changes" comment="Re-enabled debug" />
+    <list default="true" id="011c6a8b-9d9f-4b64-829c-f4a6dc58e034" name="Changes" comment="Updated Dockerfile for NPM management" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -230,7 +230,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1783430981772</updated>
-      <workItem from="1783430982973" duration="2136000" />
+      <workItem from="1783430982973" duration="2544000" />
     </task>
     <task id="LOCAL-00001" summary="Added content to new repo">
       <option name="closed" value="true" />
@@ -272,7 +272,15 @@
       <option name="project" value="LOCAL" />
       <updated>1783434313898</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Updated Dockerfile for NPM management">
+      <option name="closed" value="true" />
+      <created>1783434553662</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1783434553662</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -286,6 +294,7 @@
     <MESSAGE value="Updated dependencies" />
     <MESSAGE value="Changed env to prod and debug off" />
     <MESSAGE value="Re-enabled debug" />
-    <option name="LAST_COMMIT_MESSAGE" value="Re-enabled debug" />
+    <MESSAGE value="Updated Dockerfile for NPM management" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated Dockerfile for NPM management" />
   </component>
 </project>
