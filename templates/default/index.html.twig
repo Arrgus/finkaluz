@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="container px-5">
+		<section class="row">
+			<div class="col-6">
+				<div class="flex align-items-center h-100">
+					<div>
+						<h3 class="font-size-60 bold black-light mb-5">La energia de tu comunidad</h3>
+						<p>Unirse a
+							<span class="bold">FINKALUZ</span>
+							es apostar por la tranquilidad, y
+							<span class="bold primary-color">el ahorro</span>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-6"><img src="{{ asset('images/team.jpeg') }}" class="img-fluid" alt="team"></div>
+		</section>
+		<section class="row mt-5">
+			<div class="col-md-4">
+				<h1 class="bold font-size-60 black-light">Comunícate con tu gestor personal</h1>
+				<p>Asesor personalizado para todas tus consultas, cambios contracturales y averías</p>
+				<p>
+					Un único usuario donde tendrás todos los puntos de suministro unificados, para que puedas acceder a todas las facturas de tus comunidades</p>
+			</div>
+			<div class="col-md-2"></div>
+			<div class="col-md-6"><img class="w-100" src="{{ asset('images/adviser.jpg') }}" alt="adiver"></div>
+		</section>
+		<section class="row mt-5">
+			<h3 class="bold font-size-35">La comercializadora exclusiva para administradores de fincas</h3>
+			<p>¡Queremos hacer tu trabajo más fácil!</p>
+			<div class="col-12">
+				<div id="clientes-feedback">
+					<div>
+						<div class="flex justify-content-center align-items-center" style="height: 200px">
+							<img src="{{ asset('images/iesa.jpeg') }}" alt="iesa" class="w-50">
+						</div>
+					</div>
+					<div>
+						<div class="flex justify-content-center align-items-center" style="height: 200px">
+							<img src="{{ asset('images/netfincas.jpeg') }}" alt="netfincas" class="w-50">
+						</div>
+					</div>
+					<div>
+						<div class="flex justify-content-center align-items-center" style="height: 200px">
+							<img src="{{ asset('images/pragma.jpeg') }}" alt="pragma" class="w-50">
+						</div>
+					</div>
+					<div>
+						<div class="flex justify-content-center align-items-center" style="height: 200px">
+							<img src="{{ asset('images/sb-software.jpeg') }}" alt="sb-software" class="w-50">
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="row mt-5">
+			<h3 class="bold font-size-35 primary-color">La compañía de luz y gas que te da más ventajas</h3>
+			<div class="col-12 row">
+				<div class="flex justify-content-between row">
+					<div class="col-12 col-md-6">
+						<div class="border border-3 border-primary flex flex-column m-3 p-3 justify-content-center align-items-center" style="height: 100px">
+							<p>
+								<span class="bold">Sin permanencia</span>, sin preaviso y sin cargos adicionales en tu tarifa de luz o gas.</p>
+						</div>
+					</div>
+					<div class="col-12 col-md-6">
+						<div class="border border-3 border-primary flex flex-column m-3 p-3 justify-content-center align-items-center" style="height: 100px">
+							<p>
+								<span class="bold">Energía 100%</span>
+								verde garantizada procedente de energías renovables.</p>
+						</div>
+					</div>
+					<div class="col-12 col-md-6">
+						<div class="border border-3 border-primary flex flex-column m-3 p-3 justify-content-center align-items-center" style="height: 100px">
+							<p>
+								<span class="bold">Siempre precios baratos</span>. Sin promociones agresivas que tienen fecha de caducidad.</p>
+						</div>
+					</div>
+					<div class="col-12 col-md-6">
+						<div class="border border-3 border-primary flex flex-column m-3 p-3 justify-content-center align-items-center" style="height: 100px">
+							<p>
+								<span class="bold">Atenderemos y solucionaremos tu problema personalmente</span>. En lo posible, tratarás siempre con la misma persona.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="row mt-5">
+			<h3 class="bold font-size-35 text-center">¿Quieres formar parte de nuestra familia? ¡Trabaja con nosotros!</h3>
+			<div class="flex justify-content-center">
+			<form id="contactForm" name="sentMessage" novalidate="novalidate" class="w-50">
+				<div class="form-group">
+					<label for="cv">CV</label>
+					<input class="form-control" id="cv" type="file" placeholder="Currículum *" required="required" data-validation-required-message="Por favor, adjunta tu CV.">
+					<p class="help-block alert-warning mt-1"></p>
+				</div>
+				<div id="success"></div>
+				<input type="checkbox" id="conditions" value="1">
+				<span>
+					He leído y acepto las condiciones previstas en la
+					<a href="{{ path('privacy-policy') }}" class="bold">política de privacidad</a>*.
+				</span>
+				<button id="sendMessageButton" class="btn btn-primary w-100 mt-4" type="submit">Enviar</button>
+			</form>
+			</div>
+		</section>
+	</div>
+{% endblock %}

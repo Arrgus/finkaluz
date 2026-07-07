@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="container py-5">
+		<section>
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<h2 class="font-size-35 text-uppercase mb-5">Nuestra trayectoria</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<ul class="timeline">
+						<li>
+							<div class="timeline-image">
+								<img class="rounded-circle img-fluid" src="{{ asset('images/about-timeline-1.jpeg') }}" alt="">
+							</div>
+							<div class="timeline-panel">
+								<div class="timeline-heading">
+									<h4>2013</h4>
+								</div>
+								<div class="timeline-body">
+									<p class="text-muted">
+										<strong>Finkaluz</strong>
+										es una empresa que nace con la finalidad de garantizar un ahorro en los suministros energéticos, realizando importantes acuerdos con distintas comercializadoras de España y Portugal.
+									</p>
+								</div>
+							</div>
+						</li>
+						<li class="timeline-inverted">
+							<div class="timeline-image">
+								<img class="rounded-circle img-fluid" src="{{ asset('images/about-timeline-2.jpeg') }}" alt="">
+							</div>
+							<div class="timeline-panel">
+								<div class="timeline-heading">
+									<h4>2014</h4>
+								</div>
+								<div class="timeline-body">
+									<p class="text-muted">
+										<strong>Finkaluz</strong>
+										se introduce en el sector de la eficiencia energética y el autoconsumo, contando a día de hoy con una importante cartera de profesionales especializados en distintas áreas del sector, que confían en nuestro servicio y en nuestros productos.
+									</p>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="timeline-image">
+								<img class="rounded-circle img-fluid" src="{{ asset('images/about-timeline-3.jpeg') }}" alt="">
+							</div>
+							<div class="timeline-panel">
+								<div class="timeline-heading">
+									<h4>Actualidad</h4>
+								</div>
+								<div class="timeline-body">
+									<p class="text-muted">
+										<strong>Finkaluz</strong>
+										está en proceso de expansión, contando con puntos en distintas ciudades como Madrid, Barcelona, Sevilla, Valencia, Lisboa, Toledo e Islas Baleares.
+									</p>
+								</div>
+							</div>
+						</li>
+						<li class="timeline-inverted">
+							<a href="{{ path('products') }}">
+								<div class="timeline-image">
+									<h4 class="mt-2 mt-md-2 mt-lg-4 pt-lg-2">¡Conviértete<br>
+										en parte de nuestra
+										<br>historia!</h4>
+								</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+	</div>
+{% endblock %}

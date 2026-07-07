@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Finkaluz{% endblock %}</title>
+        <link rel="icon" href="images/favicon.png">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css">
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+            <link rel="stylesheet" href="css/avisoVacaciones.css">
+        {% endblock %}
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="{{ asset('js/jqBootstrapValidation.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+        {% include 'header.html.twig' %}
+        {% block body %}{% endblock %}
+        {% include 'footer.html.twig' %}
+        {% block scripts %}
+        <script>
+            $(function() {
+            $("#contactForm input").jqBootstrapValidation({
+                preventSubmit: true,
+                submitError: function($form, event, errors) {
+                    // additional error messages or events
+                },
+                submitSuccess: function($form, event) {
+                    event.preventDefault(); // prevent default submit behaviour
+                    // get values from FORM
+                    var email = $("input#email").val();
+                    var phone = $("input#phone").val();
+                    var send_button = $("#sendMessageButton");
+                    send_button.prop("disabled", true); // Disable submit button until AJAX call is complete to prevent duplicate messages
+                    $.ajax({
+                        url: "{{ path('contact') }}",
+                        type: "POST",
+                        data: {
+                            action:'',
+                            phone: phone,
+                            email: email,
+                        },
+                        cache: false,
+                        success: function() {
+                            // Success message
+                            $('#success').html("<div class='alert alert-success'>");
+                            $('#success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
+                                .append("</button>");
+                            $('#success > .alert-success')
+                                .append("<strong>Tu mensaje ha sido enviado. </strong>");
+                            $('#success > .alert-success')
+                                .append('</div>');
+                            //clear all fields
+                            $('#contactForm').trigger("reset");
+                        },
+                        error: function() {
+                            // Fail message
+                            $('#success').html("<div class='alert alert-danger'>");
+                            $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
+                                .append("</button>");
+                            $('#success > .alert-danger').append($("<strong>").text("Lo sentimos, parece que el servidor de email no responde. Por favor, vuelve a intentarlo mas tarde."));
+                            $('#success > .alert-danger').append('</div>');
+                            //clear all fields
+                            $('#contactForm').trigger("reset");
+                        },
+                        complete: function() {
+                            setTimeout(function() {
+                                send_button.prop("disabled", false); // Re-enable submit button when AJAX call is complete
+                            }, 1000);
+                        }
+                    });
+                },
+                filter: function() {
+                    return $(this).is(":visible");
+                },
+            });
+            $("a[data-toggle=\"tab\"]").click(function(e) {
+                e.preventDefault();
+                $(this).tab("show");
+            });
+            });
+            /*When clicking on Full hide fail/success boxes */
+            $('#name').focus(function() {
+            $('#success').html('');
+            });
+        </script>
+        <script src="js/avisoVacaciones.js"></script>
+        {% endblock %}
+    </body>
+</html>

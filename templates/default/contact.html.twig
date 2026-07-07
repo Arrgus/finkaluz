@@ -1,0 +1,127 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="container px-5">
+		<section class="row mt-5 flex justify-content-center align-items-center">
+			<div class="shadow p-4 mb-5 bg-body rounded">
+				<h3 class="">Contacto con Finkasluz</h3>
+				<p>Si quieres que hablemos rellena el siguiente formulario y nos pondremos en contacto a la velocidad del rayo.</p>
+				<div>
+					<form id="contactForm" name="sentMessage" novalidate="novalidate">
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label for="name">Nombre y apellidos</label>
+                                    <input class="form-control" id="name" type="text" placeholder="Nombre *" required="required" data-validation-required-message="Por favor, introduce tu nombre.">
+                                    <p class="help-block alert-warning mt-1"></p>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label for="phone">Teléfono</label>
+                                    <input class="form-control" id="phone" type="tel" placeholder="Número de teléfono *" required="required" data-validation-required-message="Por favor, introduce tu número de teléfono.">
+                                    <p class="help-block alert-warning mt-1"></p>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="email">Email</label>
+							<input class="form-control" id="email" type="email" placeholder="Dirección de email *" required="required" data-validation-required-message="Por favor, introduce tu dirección de correo.">
+                            <p class="help-block alert-warning mt-1"></p>
+						</div>
+						<div class="form-group">
+							<label for="message">Mensaje</label>
+							<textarea class="form-control" id="message" placeholder="Tu mensaje *" required="required" data-validation-required-message="Por favor, introduce un mensaje."></textarea>
+                            <p class="help-block alert-warning mt-1"></p>
+						</div>
+						<div id="success"></div>
+                        <button id="sendMessageButton" class="btn btn-primary w-100 mt-4" type="submit">Enviar</button>
+					</form>
+				</div>
+			</div>
+		</section>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+    <!-- Contact form JavaScript -->
+    <script src="{{ asset('js/jqBootstrapValidation.js') }}"></script>
+    <script>
+        $(function() {
+
+            $("#contactForm input,#contactForm textarea").jqBootstrapValidation({
+                preventSubmit: true,
+                submitError: function($form, event, errors) {
+                    // additional error messages or events
+                },
+                submitSuccess: function($form, event) {
+                    event.preventDefault(); // prevent default submit behaviour
+                    // get values from FORM
+                    var name = $("input#name").val();
+                    var email = $("input#email").val();
+                    var phone = $("input#phone").val();
+                    var message = $("textarea#message").val();
+                    var firstName = name; // For Success/Failure Message
+                    // Check for white space in name for Success/Fail message
+                    if (firstName.indexOf(' ') >= 0) {
+                        firstName = name.split(' ').slice(0, -1).join(' ');
+                    }
+                    $this = $("#sendMessageButton");
+                    $this.prop("disabled", true); // Disable submit button until AJAX call is complete to prevent duplicate messages
+                    $.ajax({
+                        url: "{{ path('contact') }}",
+                        type: "POST",
+                        data: {
+                            action:'',
+                            name: name,
+                            phone: phone,
+                            email: email,
+                            message: message
+                        },
+                        cache: false,
+                        success: function() {
+                            // Success message
+                            $('#success').html("<div class='alert alert-success'>");
+                            $('#success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
+                                .append("</button>");
+                            $('#success > .alert-success')
+                                .append("<strong>Tu mensaje ha sido enviado. </strong>");
+                            $('#success > .alert-success')
+                                .append('</div>');
+                            //clear all fields
+                            $('#contactForm').trigger("reset");
+                        },
+                        error: function() {
+                            // Fail message
+                            $('#success').html("<div class='alert alert-danger'>");
+                            $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
+                                .append("</button>");
+                            $('#success > .alert-danger').append($("<strong>").text("Lo sentimos, " + firstName + ", parece que el servidor de email no responde. Por favor, vuelve a intentarlo mas tarde."));
+                            $('#success > .alert-danger').append('</div>');
+                            //clear all fields
+                            $('#contactForm').trigger("reset");
+                        },
+                        complete: function() {
+                            setTimeout(function() {
+                                $this.prop("disabled", false); // Re-enable submit button when AJAX call is complete
+                            }, 1000);
+                        }
+                    });
+                },
+                filter: function() {
+                    return $(this).is(":visible");
+                },
+            });
+
+            $("a[data-toggle=\"tab\"]").click(function(e) {
+                e.preventDefault();
+                $(this).tab("show");
+            });
+        });
+
+        /*When clicking on Full hide fail/success boxes */
+        $('#name').focus(function() {
+            $('#success').html('');
+        });
+    </script>
+{% endblock %}
