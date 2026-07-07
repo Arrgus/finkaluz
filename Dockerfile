@@ -17,20 +17,27 @@ COPY . .
 RUN composer dump-autoload --optimize --classmap-authoritative
 
 
-# ─── Stage 2: Final image ────────────────────────────────────────────────────
+# ─── Stage 2: Frontend assets (Webpack Encore) ──────────────────────────────
+FROM node:20-bookworm AS frontend
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+RUN npm ci
+
+COPY . .
+RUN npm run build
+
+
+# ─── Stage 3: Final image ────────────────────────────────────────────────────
 FROM php:8.2-fpm-bookworm
 
 # ── System dependencies + wkhtmltopdf ────────────────────────────────────────
-# wkhtmltopdf is installed from the Debian repos (0.12.6 patched-qt build).
-# If you need the upstream binary (for header/footer JS support) replace this
-# block with a wget of the official .deb from github.com/wkhtmltopdf/packaging.
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        # wkhtmltopdf runtime deps
         wkhtmltopdf \
         libxrender1 \
         libxext6 \
         libfontconfig1 \
-        # PHP extension build deps
         libicu-dev \
         libzip-dev \
         libpng-dev \
@@ -38,7 +45,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libfreetype6-dev \
         libonig-dev \
         libxml2-dev \
-        # Misc
         unzip \
         git \
         nginx \
@@ -75,6 +81,7 @@ WORKDIR /var/www/html
 
 COPY --chown=www-data:www-data . .
 COPY --chown=www-data:www-data --from=vendor /app/vendor ./vendor
+COPY --chown=www-data:www-data --from=frontend /app/public/build ./public/build
 
 # ── Symfony warm-up ──────────────────────────────────────────────────────────
 RUN mkdir -p var/cache var/log \
